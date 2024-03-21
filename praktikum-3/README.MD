@@ -31,7 +31,9 @@ server_socket.close()
 ```
 
 **Output**
+
 ![alt text](output_server.png)
 
 **Penjelasan**
+
 Program server menggunakan modul socket di Python untuk menerima pesan dari klien dan mengirimkan pesan balasan berisi jumlah karakter pada pesan tersebut. Program dimulai dengan melakukan import modul socket agar dapat berkomunikasi melalui jaringan, kemudian membuat object socket untuk server menggunakan IPv4 dengan tipe socket SOCK_STREAM yaitu komunikasi menggunakan protokol TCP. Selanjutnya menentukan alamat host dan port yang akan digunakan oleh server yaitu dengan host 127.0.0.1 dan port 12345, lalu mengikat object socket pada server ke alamat dan port yang sudah ditentukan. Selanjutnya server menunggu koneksi masuk dari client server dan menerima koneksi dari client jika berhasil. Kemudian server menerima data yang dikirim dari client lalu menghitung jumlah karakter dalam kalimat yang diterima dari klien setelah didekode. Selanjutnya server mengirim respons ke client setelah mengonversi respons ke byte menggunakan encode. Kemudian menutup koneksi socket client dan server jika sudah selesai. 
