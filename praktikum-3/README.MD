@@ -29,3 +29,6 @@ client_socket.sendall(response.encode())
 client_socket.close()
 server_socket.close()
 ```
+
+Output :
+
