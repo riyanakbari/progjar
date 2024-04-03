@@ -2,10 +2,6 @@
 
 ## Nama  : M. Riyan Akbari - NIM : 1203220131
 
-### Ringkasan
-
-Program FTP dengan Socket Programming menggunakan bahasa Python.
-
 ### [Penjelasan](#Penjelasan)  |  [Penggunaan Command](#Penggunaan)
 
 
