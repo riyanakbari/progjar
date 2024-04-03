@@ -1,13 +1,12 @@
 # Tugas 2 - FTP Socket Programming On python
 
-## Nama  : M. Riyan Akbari 
-## NIM : 1203220131
+## Nama  : M. Riyan Akbari - NIM : 1203220131
 
 ### Ringkasan
 
-Program FTP menggunakan Socket Programming menggunakan bahasa Python.
+Program FTP dengan Socket Programming menggunakan bahasa Python.
 
-### [Penjelasan](#Penjelasan) | [Penggunaan Command](#Penggunaan)
+### [Penjelasan](#Penjelasan)  |  [Penggunaan Command](#Penggunaan)
 
 
 ## Soal
