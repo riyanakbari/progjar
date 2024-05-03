@@ -16,6 +16,7 @@ conn, addr = s.accept()
 
 print("\n Koneksi dengan alamat : {}".format(addr))
 
+
 def upld():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
