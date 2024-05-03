@@ -20,10 +20,17 @@ def upld():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
     file_name = conn.recv(file_name_length).decode()
+    # Check if the file already exists
+    original_file_name = file_name
+    counter = 1
+    while os.path.exists(file_name):
+        # If the file exists, append a number to the file name
+        file_name = f"{os.path.splitext(original_file_name)[0]}_{counter}{os.path.splitext(original_file_name)[1]}"
+        counter += 1
     conn.send(b"1")
     file_size = struct.unpack("i", conn.recv(4))[0]
     start_time = time.time()
-    print("Menerima file...")
+    print(f"Menerima file : {file_name}")
     content = open(file_name, "wb")
     l = conn.recv(BUFFER_SIZE)
     while l:

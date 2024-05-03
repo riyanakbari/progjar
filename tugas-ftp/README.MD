@@ -16,6 +16,11 @@ Buat sebuah program file transfer protocol menggunakan socket programming dengan
 - byebye : ketika client menginputkan command tersebut, maka hubungan socket client akan diputus.
 - connme : ketika client menginputkan command tersebut, maka hubungan socket client akan terhubung.
 
+Soal Tambahan :
+- Modifikasi agar file yang diterima dimasukkan ke folder tertentu 
+- Modifikasi program agar memberikan feedback nama file dan filesize yang diterima.
+- Apa yang terjadi jika pengirim mengirimkan file dengan nama yang sama dengan file yang telah dikirim sebelumnya? Dapat menyebabkan masalah kah ? Lalu bagaimana solusinya? Implementasikan ke dalam program, solusi yang Anda berikan.
+
 ## Penjelasan
 
 **server.py**.
@@ -479,6 +484,10 @@ Contoh file_path adalah ``D:\Kuliah\SEMESTER 4\PROGJAR\Praktikum\praktikum-4\tes
 Mengirim file...
 File berhasil dikirim
 ```
+Jika terdapat file yang sama pada folder tujuan, maka otomatis akan melakukan increment pada nama file yang akan diupload.
+
+Contoh :
+test_1.txt
 
 **ls**
 ``` 
@@ -500,7 +509,7 @@ Total ukuran direktori: 8192b
 ``` 
 Masukkan perintah : download <file_path>
 ```
-Contoh file_path adalah ``D:\Kuliah\SEMESTER 4\PROGJAR\Praktikum\praktikum-4\test.txt`` digunakan untuk mengupload file. Jika sukses maka akan muncul
+Contoh file_path adalah ``D:\Kuliah\SEMESTER 4\PROGJAR\Praktikum\praktikum-4\test.txt`` digunakan untuk mendownload file. Jika sukses maka akan muncul
 
 ```
 Proses download...
