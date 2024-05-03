@@ -9,6 +9,8 @@ TCP_PORT = 1456
 BUFFER_SIZE = 1024
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+
+# Fungsi untuk menghubungkan ke server
 def connme():
     try:
         s.connect((TCP_IP, TCP_PORT))
@@ -16,6 +18,8 @@ def connme():
     except:
         print("Koneksi gagal! Pastikan server telah dijalankan dan port yang digunakan benar")
 
+
+# Fungsi untuk mengunggah file ke server
 def upld(file_name):
     try:
         s.send(b"upload")
@@ -44,6 +48,8 @@ def upld(file_name):
         print("File gagal dikirim")
         return
 
+
+# Fungsi untuk melihat daftar file di server
 def list_files():
     try:
         s.send(b"ls")
@@ -70,6 +76,8 @@ def list_files():
         print("Tidak bisa mendapatkan konfirmasi terakhir dari server.")
         return
 
+
+# Fungsi untuk mengunduh file dari server
 def dwld(file_name):
     try:
         s.send(b"download")
@@ -105,6 +113,7 @@ def dwld(file_name):
         return
     return
 
+# Fungsi untuk menghapus file di server
 def delf(file_name):
     try:
         s.send(b"rm")
@@ -152,6 +161,7 @@ def delf(file_name):
         print("Tidak dapat menghapus file")
         return
 
+# Fungsi untuk mendapatkan ukuran file di server
 def get_file_size(file_name):
     try:
         s.send(b"size")
@@ -176,6 +186,7 @@ def get_file_size(file_name):
         print("Tidak bisa mendapatkan konfirmasi terakhir dari server")
         return
 
+# Fungsi untuk keluar dari server
 def quit():
     s.send(b"byebye")
     s.recv(BUFFER_SIZE)

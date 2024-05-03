@@ -16,16 +16,14 @@ conn, addr = s.accept()
 
 print("\n Koneksi dengan alamat : {}".format(addr))
 
-
+# Fungsi untuk mengunggah file dari client ke server
 def upld():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
     file_name = conn.recv(file_name_length).decode()
-    # Check if the file already exists
     original_file_name = file_name
     counter = 1
     while os.path.exists(file_name):
-        # If the file exists, append a number to the file name
         file_name = f"{os.path.splitext(original_file_name)[0]}_{counter}{os.path.splitext(original_file_name)[1]}"
         counter += 1
     conn.send(b"1")
@@ -43,7 +41,7 @@ def upld():
     print("File berhasil diterima")
     return
 
-
+# Fungsi untuk mengirim daftar file yang ada di direktori server kepada client
 def list_files():
     print("Mengirim daftar file...")
     listing = os.listdir(os.getcwd())
@@ -60,6 +58,7 @@ def list_files():
     print("Daftar file berhasil dikirim")
     return
 
+# Fungsi untuk mengunduh file dari server ke client
 def dwld():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
@@ -84,6 +83,7 @@ def dwld():
     print("File berhasil dikirim")
     return
 
+# Fungsi untuk menghapus file di server
 def delf():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
@@ -104,6 +104,8 @@ def delf():
         print("Penghapusan dibatalkan oleh pengguna!")
         return
 
+
+# Fungsi untuk mendapatkan ukuran file di server
 def get_file_size():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
@@ -114,7 +116,7 @@ def get_file_size():
         conn.send(struct.pack("i", -1))
     return
 
-
+# Fungsi untuk keluar dari server
 def quit():
     conn.send(b"1")
     conn.close()

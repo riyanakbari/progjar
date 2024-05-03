@@ -44,14 +44,20 @@ conn, addr = s.accept()
 
 print("\n Koneksi dengan alamat : {}".format(addr))
 
+# Fungsi untuk mengunggah file dari client ke server
 def upld():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
     file_name = conn.recv(file_name_length).decode()
+    original_file_name = file_name
+    counter = 1
+    while os.path.exists(file_name):
+        file_name = f"{os.path.splitext(original_file_name)[0]}_{counter}{os.path.splitext(original_file_name)[1]}"
+        counter += 1
     conn.send(b"1")
     file_size = struct.unpack("i", conn.recv(4))[0]
     start_time = time.time()
-    print("Menerima file...")
+    print(f"Menerima file : {file_name}")
     content = open(file_name, "wb")
     l = conn.recv(BUFFER_SIZE)
     while l:
@@ -63,7 +69,7 @@ def upld():
     print("File berhasil diterima")
     return
 
-
+# Fungsi untuk mengirim daftar file yang ada di direktori server kepada client
 def list_files():
     print("Mengirim daftar file...")
     listing = os.listdir(os.getcwd())
@@ -80,6 +86,7 @@ def list_files():
     print("Daftar file berhasil dikirim")
     return
 
+# Fungsi untuk mengunduh file dari server ke client
 def dwld():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
@@ -104,6 +111,7 @@ def dwld():
     print("File berhasil dikirim")
     return
 
+# Fungsi untuk menghapus file di server
 def delf():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
@@ -124,6 +132,8 @@ def delf():
         print("Penghapusan dibatalkan oleh pengguna!")
         return
 
+
+# Fungsi untuk mendapatkan ukuran file di server
 def get_file_size():
     conn.send(b"1")
     file_name_length = struct.unpack("h", conn.recv(2))[0]
@@ -134,7 +144,7 @@ def get_file_size():
         conn.send(struct.pack("i", -1))
     return
 
-
+# Fungsi untuk keluar dari server
 def quit():
     conn.send(b"1")
     conn.close()
@@ -198,6 +208,8 @@ TCP_PORT = 1456
 BUFFER_SIZE = 1024
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+
+# Fungsi untuk menghubungkan ke server
 def connme():
     try:
         s.connect((TCP_IP, TCP_PORT))
@@ -205,6 +217,8 @@ def connme():
     except:
         print("Koneksi gagal! Pastikan server telah dijalankan dan port yang digunakan benar")
 
+
+# Fungsi untuk mengunggah file ke server
 def upld(file_name):
     try:
         s.send(b"upload")
@@ -233,6 +247,8 @@ def upld(file_name):
         print("File gagal dikirim")
         return
 
+
+# Fungsi untuk melihat daftar file di server
 def list_files():
     try:
         s.send(b"ls")
@@ -259,6 +275,8 @@ def list_files():
         print("Tidak bisa mendapatkan konfirmasi terakhir dari server.")
         return
 
+
+# Fungsi untuk mengunduh file dari server
 def dwld(file_name):
     try:
         s.send(b"download")
@@ -294,6 +312,7 @@ def dwld(file_name):
         return
     return
 
+# Fungsi untuk menghapus file di server
 def delf(file_name):
     try:
         s.send(b"rm")
@@ -341,6 +360,7 @@ def delf(file_name):
         print("Tidak dapat menghapus file")
         return
 
+# Fungsi untuk mendapatkan ukuran file di server
 def get_file_size(file_name):
     try:
         s.send(b"size")
@@ -365,6 +385,7 @@ def get_file_size(file_name):
         print("Tidak bisa mendapatkan konfirmasi terakhir dari server")
         return
 
+# Fungsi untuk keluar dari server
 def quit():
     s.send(b"byebye")
     s.recv(BUFFER_SIZE)
